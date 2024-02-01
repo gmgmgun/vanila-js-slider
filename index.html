@@ -3,15 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>이미지 슬라이더</title>
   </head>
   <body>
-    <div id="slider">
-      <img src="image1.jpg" class="slide" style="display: block" />
-      <img src="image2.jpg" class="slide" />
-      <img src="image3.jpg" class="slide" />
-      <button id="prev"><</button>
-      <button id="next">></button>
+    <div id="slider-container">
+      <button id="prev">&lt;</button>
+      <div id="slider">
+        <img src="data/images/1.png" />
+        <img src="data/images/2.png" />
+        <img src="data/images/3.png" />
+        <img src="data/images/4.png" />
+        <img src="data/images/5.png" />
+      </div>
+      <button id="next">&gt;</button>
     </div>
+    <script src="app.js"></script>
   </body>
 </html>
