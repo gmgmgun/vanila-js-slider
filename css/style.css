@@ -1,12 +1,12 @@
 button {
-  background: none; /* 배경색 제거 */
-  color: inherit; /* 부모 요소의 글꼴 색상 상속 */
-  border: none; /* 테두리 제거 */
-  padding: 0; /* 패딩 제거 */
-  margin: 0; /* 마진 제거 */
-  font: inherit; /* 부모 요소의 글꼴 스타일 상속 */
-  cursor: pointer; /* 마우스 오버 시 커서 변경 */
-  outline: inherit; /* 클릭 시 나타나는 외곽선 제거 또는 상속 */
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 #slider-container {
@@ -33,9 +33,9 @@ button {
 
 .change-index {
   position: absolute;
-  z-index: 1; /* 이미지 위에 버튼이 오도록 z-index 설정 */
-  top: 50%; /* 버튼을 상하 중앙에 위치 */
-  transform: translateY(-50%); /* 버튼을 정확히 중앙에 위치시키기 위함 */
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #next {
@@ -61,21 +61,21 @@ button {
 #indicator-container {
   position: absolute;
   bottom: 0;
-  left: 50%; /* 부모 컨테이너의 가운데에 위치하도록 설정 */
-  transform: translateX(-50%); /* 자신의 너비의 절반만큼 왼쪽으로 이동 */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .indicator {
-  width: 10px; /* 원의 너비 */
-  height: 10px; /* 원의 높이 */
-  border-radius: 50%; /* 원 모양 만들기 */
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
 .white {
-  background-color: white; /* 흰색 배경 */
-  border: 1px solid black; /* 검은색 테두리 */
+  background-color: white;
+  border: 1px solid black;
 }
 
 .black {
-  background-color: black; /* 검은색 배경 */
+  background-color: black;
 }
