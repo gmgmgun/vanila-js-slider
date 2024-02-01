@@ -7,26 +7,28 @@
     <title>이미지 슬라이더</title>
   </head>
   <body>
-    <div id="slider-container">
-      <button id="prev" class="change-index">&lt;</button>
-      <div id="slider">
-        <img src="data/images/1.png" />
-        <img src="data/images/2.png" />
-        <img src="data/images/3.png" />
-        <img src="data/images/4.png" />
-        <img src="data/images/5.png" />
+    <div id="main">
+      <div id="slider-container">
+        <button id="prev" class="change-index">&lt;</button>
+        <div id="slider">
+          <img src="data/images/1.png" />
+          <img src="data/images/2.png" />
+          <img src="data/images/3.png" />
+          <img src="data/images/4.png" />
+          <img src="data/images/5.png" />
+        </div>
+        <button id="next" class="change-index">&gt;</button>
+        <div id="indicator-container">
+          <button class="indicator white"></button>
+          <button class="indicator white"></button>
+          <button class="indicator white"></button>
+          <button class="indicator white"></button>
+          <button class="indicator white"></button>
+        </div>
+        <button id="auto-play">
+          <img id="auto-play-img" alt="auto-play" />
+        </button>
       </div>
-      <button id="next" class="change-index">&gt;</button>
-      <div id="indicator-container">
-        <button class="indicator white"></button>
-        <button class="indicator white"></button>
-        <button class="indicator white"></button>
-        <button class="indicator white"></button>
-        <button class="indicator white"></button>
-      </div>
-      <button id="auto-play">
-        <img id="auto-play-img" alt="auto-play" />
-      </button>
     </div>
     <script src="app.js"></script>
   </body>
