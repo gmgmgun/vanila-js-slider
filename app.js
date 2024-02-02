@@ -6,69 +6,109 @@ class App {
     this.totalSlides = this.slider.length;
     this.currentSlide = 0;
     this.autoSlideInterval = null;
-
+    this.timeOut = null;
     this.startAutoSlide(this.isAuto);
     this.updateAutoPlayButton();
-    this.updateSlider();
+    this.updateSlider(false, true, true);
 
     document
       .getElementById('auto-play')
       .addEventListener('click', () => this.toggleAutoPlay());
 
-    document
-      .getElementById('next')
-      .addEventListener('click', () =>
-        this.changeSlide(this.currentSlide, true)
-      );
+    document.getElementById('next').addEventListener('click', () => {
+      this.changeSlide(this.currentSlide, true);
+    });
 
-    document
-      .getElementById('prev')
-      .addEventListener('click', () =>
-        this.changeSlide(this.currentSlide, false)
-      );
+    document.getElementById('prev').addEventListener('click', () => {
+      this.changeSlide(this.currentSlide, false);
+    });
 
-    this.indicators.forEach((indicator, idx) => {
-      indicator.addEventListener('click', () => this.showSlide(idx));
+    this.indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => this.showSlide(index));
     });
   }
 
-  changeSlide(index, isNext) {
-    this.resetAutoSlide();
+  changeSlide(index, isNext = true) {
+    this.currentSlide = isNext ? index + 1 : index - 1;
 
-    if (isNext) {
-      if (index === this.totalSlides - 1) {
-        this.currentSlide = 0;
-      } else {
-        this.currentSlide = index + 1;
+    if (this.currentSlide >= -1 || this.currentSlide <= this.totalSlides - 2) {
+      this.updateSlider(false, isNext, true);
+
+      if (this.currentSlide === this.totalSlides - 2) {
+        this.timeOut = setTimeout(() => {
+          this.currentSlide = 0;
+          this.updateSlider(true, isNext, true);
+        }, 300);
       }
-    } else {
-      if (index === 0) {
-        this.currentSlide = this.totalSlides - 1;
-      } else {
-        this.currentSlide = index - 1;
+
+      if (this.currentSlide === -1) {
+        this.timeOut = setTimeout(() => {
+          this.currentSlide = this.totalSlides - 3;
+          this.updateSlider(true, isNext, true);
+        }, 300);
       }
     }
 
-    this.updateSlider();
+    if (this.currentSlide > this.totalSlides - 2) {
+      this.updateSlider(false, isNext, false);
+      clearTimeout(this.timeOut);
+      this.timeOut = setTimeout(() => {
+        this.currentSlide = 0;
+        this.updateSlider(true, isNext, false);
+      }, 1);
+    }
+
+    if (this.currentSlide < -1) {
+      this.updateSlider(false, isNext, false);
+      clearTimeout(this.timeOut);
+      this.timeOut = setTimeout(() => {
+        this.currentSlide = this.totalSlides - 3;
+        this.updateSlider(true, isNext, false);
+      }, 1);
+    }
   }
 
   showSlide(index) {
     this.resetAutoSlide();
-
     this.currentSlide = index;
 
-    this.updateSlider();
+    this.updateSlider(false, true, true);
   }
 
-  updateSlider() {
+  updateSlider(skipAnimation, isNext, isValidIndex) {
+    this.resetAutoSlide();
+
+    if (skipAnimation) {
+      this.slider.forEach((slide) => {
+        slide.style.transition = 'none';
+      });
+    } else {
+      if (isValidIndex) {
+        this.slider.forEach((slide) => {
+          slide.style.transition = 'transform 0.3s ease';
+        });
+      } else {
+        this.slider.forEach((slide) => {
+          slide.style.transition = 'transform 0.01s ease';
+        });
+      }
+    }
+
     this.slider.forEach((slide, index) => {
       slide.style.transform = `translateX(${
-        100 * (index - this.currentSlide)
+        100 * (index - this.currentSlide - 1)
       }%)`;
     });
 
     this.indicators.forEach((indicator, index) => {
-      if (index === this.currentSlide) {
+      let currentIndex = this.currentSlide;
+      if (isNext && currentIndex === this.totalSlides - 2) {
+        currentIndex = 0;
+      } else if (!isNext && currentIndex === -1) {
+        currentIndex = this.totalSlides - 3;
+      }
+
+      if (index === currentIndex) {
         indicator.classList.add('black');
         indicator.classList.remove('white');
       } else {
@@ -99,11 +139,7 @@ class App {
     this.isAuto = !this.isAuto;
     this.updateAutoPlayButton();
 
-    if (this.isAuto) {
-      this.startAutoSlide();
-    } else {
-      this.stopAutoSlide();
-    }
+    this.isAuto ? this.startAutoSlide() : this.stopAutoSlide();
   }
 
   updateAutoPlayButton() {
